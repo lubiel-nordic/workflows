@@ -1,0 +1,54 @@
+name: Reusable build all workflow
+
+on:
+  workflow_call:
+    inputs:
+      repo_name:
+        required: true
+        type: string
+      toolchain:
+        required: true
+        type: string      
+
+jobs:
+  build-in-docker:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    container: ghcr.io/nrfconnect/sdk-nrf-toolchain:{{ inputs.toolchain}}
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository 
+        uses: actions/checkout@v4
+        with:
+          path: test
+    
+      - name: Prepare west project
+        run: |
+          west init -l test --mf ${{ inputs.repo_name }}.yml
+          west update -o=--depth=1 -n
+
+      - name: Build firmware
+        working-directory: test
+        run: |
+          west twister -T . -v --inline-logs --integration --build-only
+
+      - name: Genreate HTML Report
+        working-directory: test
+        if: always()
+        run:
+          junit2html twister-out/twister.xml twister-out/${{ inputs.repo_name }}_report.html
+
+      - name: Archive test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test results ${{ matrix.course }}
+          path: |
+            test/twister-out/*.xml
+            test/twister-out/*.json
+            test/twister-out/*.log
+            test/twister-out/*.html

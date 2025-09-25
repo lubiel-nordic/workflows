@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-    container: ghcr.io/nrfconnect/sdk-nrf-toolchain:{{ inputs.toolchain}}
+    container: ghcr.io/nrfconnect/sdk-nrf-toolchain:${{ inputs.toolchain}}
     defaults:
       run:
         shell: bash

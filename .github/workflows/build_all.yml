@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: disk space
         run: |
-          sudo dh -h
+          sudo df -h
           sudo rm -rf /usr/lib/jvm /usr/share/dotnet /usr/share/swift
           sudo rm -rf /usr/local/.ghcup /usr/local/julia* /usr/local/lib/android
           sudo rm -rf /usr/local/share/chromium /opt/microsoft /opt/google

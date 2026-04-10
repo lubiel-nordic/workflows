@@ -23,10 +23,10 @@ jobs:
     steps:
       - name: disk space
         run: |
-          sudo df -h
-          sudo rm -rf /usr/lib/jvm /usr/share/dotnet /usr/share/swift
-          sudo rm -rf /usr/local/.ghcup /usr/local/julia* /usr/local/lib/android
-          sudo rm -rf /usr/local/share/chromium /opt/microsoft /opt/google
-          sudo rm -rf /opt/az /usr/local/share/powershell /opt/hostedtoolcache
-          sudo df -h
+          df -h
+          rm -rf /usr/lib/jvm /usr/share/dotnet /usr/share/swift
+          rm -rf /usr/local/.ghcup /usr/local/julia* /usr/local/lib/android
+          rm -rf /usr/local/share/chromium /opt/microsoft /opt/google
+          rm -rf /opt/az /usr/local/share/powershell /opt/hostedtoolcache
+          df -h
 

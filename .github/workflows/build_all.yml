@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test results ${{ matrix.course }}
+          name: test results ${{ inputs.repo_name }}
           path: |
             test/twister-out/*.xml
             test/twister-out/*.json

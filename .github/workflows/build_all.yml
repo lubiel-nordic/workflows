@@ -34,7 +34,7 @@ jobs:
       - name: Build firmware
         working-directory: test
         run: |
-          west twister -T . -v --inline-logs --integration --build-only
+          west twister -T . -v --inline-logs --integration --build-only --runtime-artifact-cleanup
 
       - name: Genreate HTML Report
         working-directory: test

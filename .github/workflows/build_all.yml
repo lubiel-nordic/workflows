@@ -16,6 +16,8 @@ jobs:
     strategy:
       fail-fast: false
     container: ghcr.io/nrfconnect/sdk-nrf-toolchain:${{ inputs.toolchain}}
+    volumes:
+      - ${PWD}:/tmp
     defaults:
       run:
         shell: bash
@@ -24,7 +26,7 @@ jobs:
       - name: Checkout repository 
         uses: actions/checkout@v4
         with:
-          path: test
+          path: /tmp/test
     
       - name: Prepare west project
         run: |
@@ -32,12 +34,12 @@ jobs:
           west update -o=--depth=1 -n
 
       - name: Build firmware
-        working-directory: test
+        working-directory: /tmp/test
         run: |
           west twister -T . -v --inline-logs --integration --build-only
 
       - name: Genreate HTML Report
-        working-directory: test
+        working-directory: /tmp/test
         if: always()
         run:
           junit2html twister-out/twister.xml twister-out/${{ inputs.repo_name }}_report.html

@@ -6,9 +6,6 @@ on:
       repo_name:
         required: true
         type: string
-      toolchain:
-        required: true
-        type: string      
 
 jobs:
   set-image-tag:

@@ -16,10 +16,10 @@ jobs:
     outputs:
       IMAGE_TAG: ${{ steps.set-output.outputs.IMAGE_TAG }}
     steps:
-      - name: Checkout repository with example application
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          path: example-application
+          path: test
 
       - name: Prepare west project
         run: |
